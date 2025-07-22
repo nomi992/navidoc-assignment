@@ -1,0 +1,72 @@
+# User-specific files
+.idea/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Dd]ist/
+[Dd]eploy/
+[Dd]eployment/
+[Dd]ebug-vs2017/
+[Dd]ebug-vs2019/
+[Dd]ebug-vs2022/
+[Dd]ebug-win/
+[Dd]ebug-wsl/
+[Dd]ebug-linux/
+[Dd]ebug-osx/
+[Dd]ebug-x64/
+[Dd]ebug-x86/
+[Dd]ebug-arm/
+[Dd]Release/
+[Dd]ist/
+*.dll
+*.exe
+*.pdb
+*.mdb
+*.app
+*.ipa
+*.apk
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows Installer logs
+*.cab
+*.msi
+*.msm
+*.msp
+
+# .NET Core specific files
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ASP.NET-specific files
+**/App_Data/
+**/App_Start/
+**/bin/
+**/obj/
+
+# VS Code folders and files
+.vscode/
+
+# User-specific files
+.idea/
+.vscode/
+
+# Mac-specific files
+.DS_Store
+
+# Windows Installer logs
+*.cab
+*.msi
+*.msm
+*.msp

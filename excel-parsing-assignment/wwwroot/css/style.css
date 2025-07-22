@@ -1,0 +1,70 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+/* General Page Styling */
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+#fileUpload {
+    margin-right: 10px;
+}
+
+button {
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+/* Report Table Styling */
+.report-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+    .report-table th, .report-table td {
+        padding: 8px;
+        border: 1px solid #ccc;
+        text-align: left;
+    }
+
+    .report-table th {
+        background-color: #f2f2f2;
+        cursor: move;
+    }
+
+    .report-table td {
+        background-color: #fafafa;
+    }
+
+/* Styling for resizable columns */
+th.ui-resizable-handle {
+    cursor: ew-resize;
+}
+
+/* Optional styling for the dialog or modal */
+#reportContainer {
+    margin-top: 20px;
+    background-color: white;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
