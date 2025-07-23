@@ -11,14 +11,24 @@
 </div>
 
 <!-- Report container -->
-<div id="reportContainer"></div>
+@* <div id="reportContainer"></div> *@
 
+
+<div id="dialog" title="Report Viewer" style="display:none;">
+    <div id="reportContainer" class="table-scroll"></div>
+</div>
+
+
+<!-- Include jQuery first -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui/1.12.1/jquery-ui.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-resizable-columns@1.0.0/dist/jquery.resizableColumns.min.js"></script>
-@* <script src="~/Scripts/app.js"></script> *@
-<!-- Reference the CSS file -->
 
+<!-- Include jQuery UI (needed for resizable and draggable columns) -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
-<!-- Reference the JavaScript file -->
+<!-- Reference ExcelJS Library -->
+<script src="https://cdn.jsdelivr.net/npm/exceljs@4.2.0/dist/exceljs.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/dragtable@1.1.4/js/dragtable.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<!-- Include your custom JavaScript file -->
 <script src="~/js/app.js"></script>

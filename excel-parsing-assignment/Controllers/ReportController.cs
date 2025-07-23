@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Mvc;
-using OfficeOpenXml;
-
 namespace excel_parsing_assignment.Controllers
 {
     public class ReportController : Controller
@@ -17,59 +15,85 @@ namespace excel_parsing_assignment.Controllers
         {
             return View("~/Views/Home/ExcelReport.cshtml");
         }
+        //[HttpPost]
+        //public async Task<IActionResult> UploadExcel(IFormFile file)
+        //{
+        //    if (file == null || file.Length == 0)
+        //    {
+        //        return Json(new { success = false, message = "No file uploaded" });
+        //    }
+
+        //    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", file.FileName);
+
+        //    // Ensure the directory exists
+        //    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+
+        //    // Save the file
+        //    using (var stream = new FileStream(filePath, FileMode.Create))
+        //    {
+        //        await file.CopyToAsync(stream);
+        //    }
+
+        //    // Return success (No need to return the data as ExcelJS will handle it on the client side)
+        //    return Json(new { success = true });
+        //}
         [HttpPost]
         public async Task<IActionResult> UploadExcel(IFormFile file)
         {
-            if (file != null && file.Length > 0)
+            // Validate that the file is not empty or null
+            if (file == null || file.Length == 0)
             {
-                var fileName = Path.GetFileName(file.FileName);
-                var filePath = Path.Combine(_env.WebRootPath, "uploads", fileName);
+                return Json(new { success = false, message = "No file uploaded." });
+            }
 
-                // Ensure the directory exists
-                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+            // Validate file extension (only allow .xlsx files)
+            if (!file.FileName.EndsWith(".xlsx"))
+            {
+                return Json(new { success = false, message = "Only Excel files (.xlsx) are allowed." });
+            }
 
-                using (var stream = new FileStream(filePath, FileMode.Create))
+            // Check for file size (limit to 10MB for example)
+            if (file.Length > 10 * 1024 * 1024) // 10MB
+            {
+                return Json(new { success = false, message = "File size exceeds the allowed limit (10MB)." });
+            }
+
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", file.FileName);
+
+            // Ensure the directory exists
+            Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+
+            try
+            {
+                // Use FileShare.ReadWrite to allow concurrent access
+                using (var stream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
                 {
+                    // Copy the file to the server
                     await file.CopyToAsync(stream);
                 }
 
-                List<Dictionary<string, string>> reportData = ParseExcel(filePath);
-
-                // Return the parsed data as JSON
-                return Json(new { success = true, data = reportData });
+                // Return success response
+                return Json(new { success = true, message = "File uploaded successfully." });
             }
-            return Json(new { success = false, message = "No file uploaded" });
-        }
-        private List<Dictionary<string, string>> ParseExcel(string filePath)
-        {
-            var dataList = new List<Dictionary<string, string>>();
-
-            using (var package = new ExcelPackage(new FileInfo(filePath)))
+            catch (IOException ioEx)
             {
-                var worksheet = package.Workbook.Worksheets[0]; // Get the first sheet
-                var rowCount = worksheet.Dimension.Rows;
-                var colCount = worksheet.Dimension.Columns;
-
-                // Read header row (first row) to use as keys
-                var headers = new List<string>();
-                for (int col = 1; col <= colCount; col++)
-                {
-                    headers.Add(worksheet.Cells[1, col].Text);
-                }
-
-                // Read data from remaining rows
-                for (int row = 2; row <= rowCount; row++) // Start from 2 to skip header
-                {
-                    var rowData = new Dictionary<string, string>();
-                    for (int col = 1; col <= colCount; col++)
-                    {
-                        rowData[headers[col - 1]] = worksheet.Cells[row, col].Text;
-                    }
-                    dataList.Add(rowData);
-                }
+                // Log and return the error
+                Console.Error.WriteLine("IOException: " + ioEx.Message);
+                return Json(new { success = false, message = "File is being used by another process or there's an issue with the file." });
             }
+            catch (Exception ex)
+            {
+                // Log and return the error
+                Console.Error.WriteLine("Exception: " + ex.Message);
+                return Json(new { success = false, message = "An unexpected error occurred while uploading the file." });
+            }
+        }
 
-            return dataList;
+        public PartialViewResult ReportPartial()
+        {
+            return PartialView("~/Views/Home/ExcelReport.cshtml");
         }
     }
+
 }
+

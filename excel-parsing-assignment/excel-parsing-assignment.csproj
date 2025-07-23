@@ -11,13 +11,13 @@
     <None Include="wwwroot\css\style.css" />
     <None Include="wwwroot\js\app.js" />
   </ItemGroup>
+	<!--<ItemGroup>
+		--><!-- Explicitly include static files --><!--
+		<Content Include="wwwroot\css\style.css" CopyToPublishDirectory="PreserveNewest" />
+		<Content Include="wwwroot\js\app.js" CopyToPublishDirectory="PreserveNewest" />
+	</ItemGroup>-->
 
-  <ItemGroup>
-    <PackageReference Include="EPPlus" Version="8.0.7" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Content\" />
-  </ItemGroup>
-
+	<ItemGroup>
+		<Folder Include="Content\" />
+	</ItemGroup>
 </Project>

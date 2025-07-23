@@ -1,70 +1,169 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-/* General Page Styling */
-body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    background-color: #f4f4f4;
+﻿
+
+/* Blur background when dialog is open */
+.ui-widget-overlay {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
 }
 
-h2 {
-    margin-bottom: 20px;
-}
 
-#fileUpload {
-    margin-right: 10px;
-}
 
-button {
-    padding: 10px 15px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #4CAF50;
-    color: white;
+
+
+
+
+
+
+/* ==== DIALOG BOX ==== */
+.ui-dialog {
+    position: absolute !important;
+    top: 10% !important;
+    left: 50% !important;
+    transform: translateX(-50%);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     border: none;
-    border-radius: 5px;
+    background-color: white;
+    z-index: 1000;
+    font-family: 'Segoe UI', sans-serif;
 }
 
-    button:hover {
-        background-color: #45a049;
+/* Title Bar */
+.ui-dialog-titlebar {
+    background: #306d8b;
+    color: white;
+    padding: 0.6rem 1rem;
+    font-weight: bold;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border: none;
+    position: relative;
+}
+
+/* Close Button - "X" black and circular */
+.ui-dialog-titlebar-close {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    background: white;
+    border: none;
+    color: black; /* X is black */
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 24px;
+    text-align: center;
+    padding: 0;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+    .ui-dialog-titlebar-close:hover {
+        background: #e6e6e6;
     }
 
-/* Report Table Styling */
+/* Content padding */
+.ui-dialog-content {
+    padding: 1rem !important;
+}
+
+/* ==== REPORT TABLE ==== */
 .report-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 15px;
+    table-layout: fixed;
 }
 
     .report-table th, .report-table td {
-        padding: 8px;
         border: 1px solid #ccc;
+        padding: 8px;
         text-align: left;
+        word-wrap: break-word;
+        overflow: hidden;
+        position: relative;
     }
 
     .report-table th {
-        background-color: #f2f2f2;
+        background-color: #f1f1f1;
         cursor: move;
+        user-select: none;
+        font-weight: bold;
     }
 
-    .report-table td {
-        background-color: #fafafa;
-    }
+        .report-table th.dragging {
+            opacity: 0.5;
+        }
 
-/* Styling for resizable columns */
-th.ui-resizable-handle {
-    cursor: ew-resize;
+        .report-table th.drop-target {
+            background-color: #d0eaff;
+        }
+
+.resizer {
+    position: absolute;
+    right: 0;
+    width: 6px;
+    height: 100%;
+    top: 0;
+    cursor: col-resize;
+    background-color: #ddd;
+    z-index: 1;
 }
 
-/* Optional styling for the dialog or modal */
-#reportContainer {
+.hidden-col {
+    display: none;
+}
+
+/* ==== CONTROLS ==== */
+.controls {
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+    .controls label {
+        font-size: 14px;
+        cursor: pointer;
+        user-select: none;
+    }
+
+#fileUpload {
     margin-top: 20px;
-    background-color: white;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#uploadBtn {
+    margin-top: 10px;
+    padding: 8px 14px;
+    background-color: #306d8b;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+    #uploadBtn:hover {
+        background-color: #005fa3;
+    }
+
+/* Dialog footer buttons */
+.ui-dialog-buttonset button {
+    background-color: #007bff !important;
+    color: white !important;
+    border-radius: 4px !important;
+    padding: 6px 12px;
+}
+
+.table-scroll{
+    height:500px;
+    overflow:auto;
 }
