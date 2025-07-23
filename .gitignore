@@ -70,3 +70,7 @@ artifacts/
 *.msi
 *.msm
 *.msp
+*.vsidx
+*.db-shm
+*.db-wal
+*.db
